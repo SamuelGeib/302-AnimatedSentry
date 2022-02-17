@@ -74,5 +74,18 @@ public static class AnimMath
 
     }
 
+    /// <summary>
+    /// Trying to ease between angles > 180 degrees? you need to wrap your angles!
+    /// </summary>
+    /// <param name="baseAngle">This angle won't change</param>
+    /// <param name="angleToBeWrapped">This angle will change so that is is relative to baseAngle.</param>
+    /// <returns>The Wrapped Angle</returns>
+    public static float AngleWrapDegrees(float baseAngle, float angleToBeWrapped) {
+        while (baseAngle > angleToBeWrapped + 180) angleToBeWrapped += 360;
+        while (baseAngle < angleToBeWrapped - 180) angleToBeWrapped -= 360;
+
+        return angleToBeWrapped;
+    }
+
 }
 

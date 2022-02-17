@@ -6,12 +6,28 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    // controls the speed at which the player walks
+    public Transform boneLegLeft;
+    public Transform boneLegRight;
+
     public float walkSpeed = 5;
+    [Range(-15, -5)]
+    public float gravity = -10;
 
     public Camera cam;
 
     CharacterController pawn; // Reference to the character's physics enchine controller
+
+    private Vector3 inputDir;
+    private float velocityVertical; // meters/second
+
+    private float cooldownJumpWindow = 0;
+    public bool IsGrounded {
+        get{
+            return pawn.isGrounded || cooldownJumpWindow > 0;
+        }
+    }
+
+
     void Start()
     {
         pawn = GetComponent<CharacterController>();
@@ -19,10 +35,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        print(velocityVertical);
+
+        if (cooldownJumpWindow > 0) cooldownJumpWindow -= Time.deltaTime;
+
+        // Lateral Movement:
+
         // Input
         float v = Input.GetAxisRaw("Vertical"); // Vertical Input "W" and "S" Range: [-1,1]
         float h = Input.GetAxisRaw("Horizontal"); // Horizontal Input "A" and "D" Range: [-1,1]
-
         bool playerWantsToMove = (v != 0 || h != 0);
 
         // Set rotation
@@ -44,10 +65,51 @@ public class PlayerMovement : MonoBehaviour
         }
         // Movement
 
-        Vector3 moveDir = transform.forward * v + transform.right * h; // Calculates the direction we want to move
-        if (moveDir.magnitude > 1) moveDir.Normalize(); // Clamp the movement vector to 1 if it is greater than 1 (consistent speed in any direction) would we still accelerate up to out movement speed faster in the diagonal directions?
+        inputDir = transform.forward * v + transform.right * h; // Calculates the direction we want to move
+        if (inputDir.magnitude > 1) inputDir.Normalize(); // Clamp the movement vector to 1 if it is greater than 1 (consistent speed in any direction) would we still accelerate up to out movement speed faster in the diagonal directions?
+
+
+        // Vertical Movement:
+        bool wantsToJump = Input.GetButtonDown("Jump"); // Space
+        if(pawn.isGrounded) {
+            if (wantsToJump)
+            {
+                cooldownJumpWindow = 0;
+                velocityVertical = 5;
+            }
+        }
+        velocityVertical += gravity * Time.deltaTime;
         
-        pawn.SimpleMove(moveDir * walkSpeed); // SimpleMove() Automatically calculates fot Delta Time, and calculates Gravity 
+
+        // Total Movement of player:
+        Vector3 moveAmount = inputDir * walkSpeed + Vector3.up * velocityVertical;
+        pawn.Move(moveAmount * Time.deltaTime); // SimpleMove() Automatically calculates fot Delta Time, and calculates Gravity 
+
+        if (pawn.isGrounded)
+        {
+            cooldownJumpWindow = .5f;
+            velocityVertical = 0;
+        }
+        WalkAnimation();
+    }
+
+    void WalkAnimation() {
+
+
+
+        Vector3 inputDirLocal = transform.InverseTransformDirection(inputDir);
+        Vector3 axis = Vector3.Cross(Vector3.up, inputDirLocal);
+
+
+        float alignment = Vector3.Dot(inputDirLocal, Vector3.forward);
+        alignment = Mathf.Abs(alignment); // absolute value
+
+        float degrees = AnimMath.Lerp(10, 40, alignment);
+        float speed = 10;
+        float wave = Mathf.Sin(Time.time * speed) * degrees; // Oscilates between -degrees and degrees
+
+        boneLegLeft.localRotation = Quaternion.AngleAxis(wave, axis);
+        boneLegRight.localRotation = Quaternion.AngleAxis(-wave, axis);
 
     }
 }
