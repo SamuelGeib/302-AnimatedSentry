@@ -31,15 +31,16 @@ public class PlayerMovement : MonoBehaviour
             float playerYaw = transform.eulerAngles.y; // Player's Y rotation
             float camYaw = cam.transform.eulerAngles.y; // Camera's Y Rotation
 
-            /* Bug Fix Attempt: Camera player Rotation Angle weirdness
+            
             while (camYaw > playerYaw + 180) camYaw -= 360;
             while (camYaw < playerYaw - 180) camYaw += 360;
-            */
+            
             print($"camYaw: {camYaw} playerYaw: {playerYaw}");
 
-
+            Quaternion playerRotation = Quaternion.Euler(0, playerYaw, 0); // Player's current rotation
             Quaternion targetRotation = Quaternion.Euler(0, camYaw, 0); // Set target rotation for player
-            transform.rotation = AnimMath.Ease(transform.rotation, targetRotation, .01f); // Ease towards target rotation
+            
+            transform.rotation = AnimMath.Ease(playerRotation, targetRotation, .01f); // Ease towards target rotation
         }
         // Movement
 

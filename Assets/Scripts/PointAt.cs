@@ -3,20 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Axis {
-    Forward, // z+
-    Backward, // z-
-    Right, // x+
-    Left, // X-
-    Up, // Y+
-    Down // Y-
-}
 
 public class PointAt : MonoBehaviour
 {
-    public Axis aimOrientation;
+    public bool lockAxisX = false;
+    public bool lockAxisY = false;
+    public bool lockAxisZ = false;
+
 
     private Quaternion startRotation;
+    private Quaternion goalRotation; // the position we ease TOWARDS
 
     private PlayerTargeting playerTargeting;
 
@@ -38,22 +34,28 @@ public class PointAt : MonoBehaviour
         {
             Vector3 vToTarget = playerTargeting.target.transform.position - transform.position;
 
-            Vector3 fromVector = Vector3.forward;
+            Quaternion worldRot = Quaternion.LookRotation(vToTarget); // Points at our target
 
-            switch (aimOrientation)
-            {
-                case Axis.Forward: fromVector = Vector3.forward; break;
-                case Axis.Backward: fromVector = Vector3.back; break;
-                case Axis.Right: fromVector = Vector3.right;  break;
-                case Axis.Left: fromVector = Vector3.left;  break;
-                case Axis.Up: fromVector = Vector3.up;  break;
-                case Axis.Down: fromVector = Vector3.down;  break;
+            Quaternion localRot = worldRot;
+            if (transform.parent) {
+                localRot = Quaternion.Inverse(transform.parent.rotation) * worldRot; // no longer points at object
             }
 
-            transform.rotation = Quaternion.FromToRotation(fromVector, vToTarget); // Points at our target
+            Vector3 euler = localRot.eulerAngles;
+
+            if (lockAxisX) euler.x = 0;
+            if (lockAxisY) euler.y = 0;
+            if (lockAxisZ) euler.z = 0;
+
+            localRot.eulerAngles = euler;
+
+            goalRotation = localRot;
+
         } else
         {
-            transform.localRotation = startRotation; // Resets arm
+            goalRotation = startRotation; // Resets arm
         }
+
+        transform.localRotation = AnimMath.Ease(transform.localRotation, goalRotation, .001f);
     }
 }

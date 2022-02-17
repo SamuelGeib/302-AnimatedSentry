@@ -27,6 +27,15 @@ private List<TargetableObject> validTargets = new List<TargetableObject>();
 
         if (playerWantsToAim)
         {
+
+            if (target != null)
+            {
+                if(!CanSeeThing(target))
+                {
+                    target = null;
+                }
+            }
+            
             if (cooldownScan <= 0) ScanForTargets();
             if (cooldownPickTarget <= 0) PickATarget();
 
@@ -36,7 +45,6 @@ private List<TargetableObject> validTargets = new List<TargetableObject>();
             target = null;
         }
 
-        print(target);
     }
 
     // Look for all valid targets, and add them to a list
@@ -48,19 +56,27 @@ private List<TargetableObject> validTargets = new List<TargetableObject>();
         TargetableObject[] things = GameObject.FindObjectsOfType<TargetableObject>();
         foreach (TargetableObject thing in things)
         {
-            Vector3 vToThing = thing.transform.position - transform.position; // Draw a vector between the thing to lookat and the player
-
-            // Tests to see if the target is close enough to see
-            if (vToThing.magnitude < visionDistance * visionDistance) {
-
-                float alignment = Vector3.Dot(transform.forward, vToThing.normalized); 
-
-                // is within 180 degrees of forward
-                if(alignment > .4f) { // .4f is 40% of 180 degrees
-                    validTargets.Add(thing);
-                }
+            if (CanSeeThing(thing))
+            {
+                validTargets.Add(thing);
             }
-        }
+           }
+    }
+
+    private bool CanSeeThing(TargetableObject thing)
+    {
+        Vector3 vToThing = thing.transform.position - transform.position; // Draw a vector between the thing to lookat and the player
+
+        // Is too far to see
+        if (vToThing.sqrMagnitude > visionDistance * visionDistance) return false;
+        
+        // How much is in-front of player?
+        float alignment = Vector3.Dot(transform.forward, vToThing.normalized);
+
+        // is within 40% of 180 degrees of forward
+        if (alignment < .4f) return false;
+        
+        return true;
     }
 
     // Look through list of valid targets, and selects one to target
