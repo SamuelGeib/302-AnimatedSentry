@@ -33,6 +33,9 @@ public static class AnimMath
 
     public static Quaternion Lerp(Quaternion a, Quaternion b, float p, bool allowExtrapolation = false) {
 
+
+        b = WrapQuaternion(a, b); // Wraps b to be less tha 180 degrees. Fixes glitch where rotations spin the wrong way
+
         Quaternion rot = Quaternion.identity;
 
         if (!allowExtrapolation)
@@ -87,5 +90,21 @@ public static class AnimMath
         return angleToBeWrapped;
     }
 
+    // If it's wrapped around the sphere too far, we want to wrap it 
+    public static Quaternion WrapQuaternion(Quaternion baseAngle, Quaternion angleToBeWrapped)  {
+        
+        float alignment = Quaternion.Dot(baseAngle, angleToBeWrapped); // 1 = same rotation, -1 means opposite rotation, 0 is perpendicular
+
+        if (alignment < 0) {
+
+            angleToBeWrapped.x *= -1;
+            angleToBeWrapped.y *= -1;
+            angleToBeWrapped.z *= -1;
+            angleToBeWrapped.w *= -1;
+
+        }
+
+        return angleToBeWrapped; // No change if the angle is within 180 degrees
+    }
 }
 

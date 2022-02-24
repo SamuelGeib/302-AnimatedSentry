@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform boneLegLeft;
     public Transform boneLegRight;
+    public Transform boneHip;
+    public Transform boneSpine;
 
     public float walkSpeed = 5;
     [Range(-15, -5)]
@@ -16,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam;
 
     CharacterController pawn; // Reference to the character's physics enchine controller
+    PlayerTargeting targetingScript;
 
     private Vector3 inputDir;
     private float velocityVertical; // meters/second
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         pawn = GetComponent<CharacterController>();
+        targetingScript = GetComponent<PlayerTargeting>();
     }
 
     void Update()
@@ -44,11 +48,25 @@ public class PlayerMovement : MonoBehaviour
         // Input
         float v = Input.GetAxisRaw("Vertical"); // Vertical Input "W" and "S" Range: [-1,1]
         float h = Input.GetAxisRaw("Horizontal"); // Horizontal Input "A" and "D" Range: [-1,1]
+        
         bool playerWantsToMove = (v != 0 || h != 0);
 
-        // Set rotation
-        if (cam && playerWantsToMove)
-        {
+        bool playerisAiming = (targetingScript && targetingScript.playerWantsToAim && targetingScript.target);
+
+        if (playerisAiming) {
+
+            Vector3 totarget = targetingScript.target.transform.position - transform.position;
+            totarget.Normalize();
+            
+            Quaternion worldRot = Quaternion.LookRotation(totarget);
+            Vector3 euler = worldRot.eulerAngles;
+            euler.x = 0;
+            euler.y = 0;
+            worldRot.eulerAngles = euler;
+            transform.rotation = AnimMath.Ease(transform.rotation, worldRot, .01f);
+
+        } 
+        else if (cam && playerWantsToMove) {
             float playerYaw = transform.eulerAngles.y; // Player's Y rotation
             float camYaw = cam.transform.eulerAngles.y; // Camera's Y Rotation
 
@@ -89,8 +107,11 @@ public class PlayerMovement : MonoBehaviour
         {
             cooldownJumpWindow = .5f;
             velocityVertical = 0;
+            WalkAnimation();
+        } else {
+            AirAnimation();
         }
-        WalkAnimation();
+
     }
 
     void WalkAnimation() {
@@ -108,8 +129,18 @@ public class PlayerMovement : MonoBehaviour
         float speed = 10;
         float wave = Mathf.Sin(Time.time * speed) * degrees; // Oscilates between -degrees and degrees
 
+        
         boneLegLeft.localRotation = Quaternion.AngleAxis(wave, axis);
         boneLegRight.localRotation = Quaternion.AngleAxis(-wave, axis);
+
+        if (boneHip) {
+            float walkBobAmount = axis.magnitude; // The amount that the player bobs while they walk
+            float offsetY = Mathf.Cos(Time.time * speed) * walkBobAmount * .05f;
+            boneHip.localPosition = new Vector3(0, offsetY, 0);
+        }
+    }
+    
+    void AirAnimation() {
 
     }
 }

@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
     private float pitch = 0; // x rotation
     private float yaw = 0; // y rotation
     private float dollyDis = 10; // Distance in Z-axis between camera and target 
-
+    private float shakeTimer;
 
     void Start()
     {
@@ -88,24 +88,48 @@ public class CameraController : MonoBehaviour
         {
             // point at target:
             Vector3 vToAimTarget = player.target.transform.position - cam.transform.position;
+            Quaternion worldRot = Quaternion.LookRotation(vToAimTarget);
+            Quaternion localRot = worldRot;
 
-            Vector3 euler = Quaternion.LookRotation(vToAimTarget).eulerAngles;
+            if(cam.transform.parent) {
+                localRot = Quaternion.Inverse(cam.transform.parent.rotation) * worldRot;
+            }
 
-            euler.y = AnimMath.AngleWrapDegrees(playerYaw, euler.y);
+            Vector3 euler = localRot.eulerAngles;
+            euler.z = 0;
+            localRot.eulerAngles = euler;
 
-            Quaternion temp = Quaternion.Euler(euler.x, euler.y, 0);
-
-            cam.transform.rotation = AnimMath.Ease(cam.transform.rotation, temp, .001f);
+            cam.transform.localRotation = AnimMath.Ease(cam.transform.localRotation, localRot, .001f);
 
                
         } else
         {
             cam.transform.localRotation = AnimMath.Ease(cam.transform.localRotation, Quaternion.identity, 0.001f);
         }
-
+        UpdateShake();
     }
 
-    // This function is called BEFORE Start
+    void UpdateShake() {
+        if (shakeTimer < 0) return;
+
+        shakeTimer -= Time.deltaTime;
+
+        float p = shakeTimer / 1;
+        p = p * p;
+
+
+        p = AnimMath.Lerp(1, .98f, p);
+
+        Quaternion randomRot = AnimMath.Lerp(Random.rotation, Quaternion.identity, p);
+
+        cam.transform.localRotation *= randomRot; 
+    }
+
+    public void Shake(float time) {
+        // if (time > shakeTimer)
+        shakeTimer += time;
+    }
+
     private void OnDrawGizmos()
     {
         if(!cam) cam = cam = GetComponentInChildren<Camera>();
