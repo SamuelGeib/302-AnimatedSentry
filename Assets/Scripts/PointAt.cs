@@ -49,8 +49,8 @@ public class PointAt : MonoBehaviour
 
             // Do not allow locked axiix to rotate by keeping them equal to their starting position.
             if (lockAxisX) euler.x = startRotation.eulerAngles.x;
-            if (lockAxisX) euler.y = startRotation.eulerAngles.y;
-            if (lockAxisX) euler.z = startRotation.eulerAngles.z;
+            if (lockAxisY) euler.y = startRotation.eulerAngles.y;
+            if (lockAxisZ) euler.z = startRotation.eulerAngles.z;
 
 
             localRot.eulerAngles = euler;

@@ -110,7 +110,6 @@ GameObject:
   - component: {fileID: 7777017359876714822}
   - component: {fileID: 7777017359876714819}
   - component: {fileID: 7777017359876714816}
-  - component: {fileID: 7777017359876714817}
   m_Layer: 0
   m_Name: LegBottom - Right
   m_TagString: Untagged
@@ -183,19 +182,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7777017359876714817
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777017359876714823}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7777017359989048879
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +292,6 @@ GameObject:
   - component: {fileID: 7777017360030644925}
   - component: {fileID: 7777017360030644898}
   - component: {fileID: 7777017360030644899}
-  - component: {fileID: 7777017360030644896}
   m_Layer: 0
   m_Name: Turret Base Top
   m_TagString: Untagged
@@ -384,20 +369,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7777017360030644896
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777017360030644897}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7777017360045360397
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +380,6 @@ GameObject:
   - component: {fileID: 7777017360045360393}
   - component: {fileID: 7777017360045360398}
   - component: {fileID: 7777017360045360399}
-  - component: {fileID: 7777017360045360396}
   m_Layer: 0
   m_Name: Barrel Axel
   m_TagString: Untagged
@@ -482,20 +452,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7777017360045360396
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777017360045360397}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7777017360109785076
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,7 +857,6 @@ GameObject:
   - component: {fileID: 7777017360296363990}
   - component: {fileID: 7777017360296363987}
   - component: {fileID: 7777017360296363984}
-  - component: {fileID: 7777017360296363985}
   m_Layer: 0
   m_Name: LegTop - Left
   m_TagString: Untagged
@@ -974,20 +929,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7777017360296363985
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777017360296363991}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7777017360318048617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,7 +1136,6 @@ GameObject:
   - component: {fileID: 7777017360423394037}
   - component: {fileID: 7777017360423394038}
   - component: {fileID: 7777017360423394039}
-  - component: {fileID: 7777017360423394036}
   m_Layer: 0
   m_Name: LegBottom - Left
   m_TagString: Untagged
@@ -1268,19 +1208,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7777017360423394036
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777017360423394042}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7777017360483961437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,7 +1514,6 @@ GameObject:
   - component: {fileID: 7777017360934473669}
   - component: {fileID: 7777017360934473670}
   - component: {fileID: 7777017360934473671}
-  - component: {fileID: 7777017360934473668}
   m_Layer: 0
   m_Name: LegTop - Right
   m_TagString: Untagged
@@ -1660,20 +1586,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7777017360934473668
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7777017360934473674}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7777017361144060300
 GameObject:
   m_ObjectHideFlags: 0
