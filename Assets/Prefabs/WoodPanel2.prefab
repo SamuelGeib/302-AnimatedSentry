@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c96f704d9d471f46a10115e232bf2fe, type: 2}
+  - {fileID: 2100000, guid: 00e423908994b1342afbdc86061aca49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c96f704d9d471f46a10115e232bf2fe, type: 2}
+  - {fileID: 2100000, guid: 00e423908994b1342afbdc86061aca49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -256,7 +256,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c96f704d9d471f46a10115e232bf2fe, type: 2}
+  - {fileID: 2100000, guid: 00e423908994b1342afbdc86061aca49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,7 +353,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c96f704d9d471f46a10115e232bf2fe, type: 2}
+  - {fileID: 2100000, guid: 00e423908994b1342afbdc86061aca49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 4100071766127618950}
   - component: {fileID: 4100071766127618949}
   m_Layer: 0
-  m_Name: WallSegment
+  m_Name: WoodPanel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +554,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c96f704d9d471f46a10115e232bf2fe, type: 2}
+  - {fileID: 2100000, guid: 00e423908994b1342afbdc86061aca49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -651,7 +651,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c96f704d9d471f46a10115e232bf2fe, type: 2}
+  - {fileID: 2100000, guid: 00e423908994b1342afbdc86061aca49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -748,7 +748,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c557397a86c569e4a843e662bf3d06dd, type: 2}
+  - {fileID: 2100000, guid: 04ae753d4d543804cb800ea69458cafa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

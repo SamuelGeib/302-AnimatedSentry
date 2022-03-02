@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        print(velocityVertical);
 
         if (cooldownJumpWindow > 0) cooldownJumpWindow -= Time.deltaTime;
 

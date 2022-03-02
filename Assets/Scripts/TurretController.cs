@@ -11,9 +11,15 @@ public class TurretController : MonoBehaviour
     public Transform boneBase;
     public Transform boneDrum;
 
+
     private currentState state = currentState.idle;
+
+    private float distanceToPlayer;
     
     public float activationRadius = 25; // The distance to player that determines when the turret activates.
+
+
+    PlayerTargeting player; // Reference to the player
 
     public enum currentState
     {
@@ -28,12 +34,11 @@ public class TurretController : MonoBehaviour
 
     void Start()
     {
-        
-        
+        player = FindObjectOfType<PlayerTargeting>();
 
-        PlayerTargeting player = FindObjectOfType<PlayerTargeting>(); // Reference to the player
-       
-        
+
+
+
     }
 
     void Update()
@@ -46,7 +51,9 @@ public class TurretController : MonoBehaviour
                 
 
                 // Switch out of Idle State
-
+                if(Vector3.Distance(transform.position, player.transform.position) <= activationRadius) {
+                    state = currentState.scanning;
+                }
                 break;
             case currentState.scanning:
                 StateScanningUpdate();
@@ -74,6 +81,9 @@ public class TurretController : MonoBehaviour
                 break;
 
         }
+
+        // Debug: Current State
+        Debug.Log("Current State: " + state);
     }
     /// <summary>
     /// Controls which state the turret is currently in.
