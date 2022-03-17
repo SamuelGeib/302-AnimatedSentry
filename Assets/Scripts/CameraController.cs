@@ -107,6 +107,7 @@ public class CameraController : MonoBehaviour
             cam.transform.localRotation = AnimMath.Ease(cam.transform.localRotation, Quaternion.identity, 0.001f);
         }
         UpdateShake();
+        camAutoDolly();
     }
 
     void UpdateShake() {
@@ -136,5 +137,20 @@ public class CameraController : MonoBehaviour
         if (!cam) return;
         Gizmos.DrawWireCube(transform.position, Vector3.one);
         Gizmos.DrawLine(transform.position, cam.transform.position);
+    }
+
+    bool isPlayerVisible() {
+        var ray = Camera.main.ScreenPointToRay(player.transform.position);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // Automatically dolly the camera rig if view of the player is obstructed.
+    void camAutoDolly() {
+        if (!isPlayerVisible()) dollyDis -= 1;
     }
 }

@@ -12,7 +12,16 @@ public class TurretController : MonoBehaviour
     public Transform boneDrum;
 
 
-    private currentState state = currentState.idle;
+    
+
+    // All Possible States
+    const int IDLE_STATE = 0;
+    const int SCAN_STATE = 1;
+    const int ATTACK_STATE = 2;
+    const int DEAD_STATE = 3;
+
+    [Range(0, 3)]
+    public int currentState = IDLE_STATE;
 
     private float distanceToPlayer;
     
@@ -21,109 +30,40 @@ public class TurretController : MonoBehaviour
 
     PlayerTargeting player; // Reference to the player
 
-    public enum currentState
-    {
-        idle,
-        scanning,
-        targetLocking,
-        targetLocked,
-        firing,
-        disabled,
-        dead
-    };
-
     void Start()
     {
         player = FindObjectOfType<PlayerTargeting>();
-
-
-
-
     }
 
     void Update()
     {
-        // Control the state of the turret
-        switch (state)
+        // Turret States:
+        switch (currentState)
         {
-            case currentState.idle:
-                StateIdleUpdate();
+            case IDLE_STATE:
                 
 
                 // Switch out of Idle State
                 if(Vector3.Distance(transform.position, player.transform.position) <= activationRadius) {
-                    state = currentState.scanning;
+                    currentState = SCAN_STATE;
                 }
                 break;
-            case currentState.scanning:
-                StateScanningUpdate();
+
+            case SCAN_STATE:
 
                 break;
-            case currentState.targetLocking:
-                StateTargetLockingUpdate();
+
+
+            case ATTACK_STATE:
+                
 
                 break;
-            case currentState.targetLocked:
-                StateTargetLockedUpdate();
 
-                break;
-            case currentState.firing:
-                StateFiringUpdate();
-
-                break;
-            case currentState.disabled:
-                StateDisabledUpdate();
-
-                break;
-            case currentState.dead:
-                StateDeadUpdate();
+            case DEAD_STATE:
 
                 break;
 
         }
-
-        // Debug: Current State
-        Debug.Log("Current State: " + state);
-    }
-    /// <summary>
-    /// Controls which state the turret is currently in.
-    /// </summary>
-
-    // Idle State Update Function
-    private void StateIdleUpdate() {
-
-    }
-
-    // Scanning State Update Function
-    private void StateScanningUpdate()
-    {
-
-    }
-
-    // Target-Locking State Update Function
-    private void StateTargetLockingUpdate()
-    {
-
-    }
-
-    // Target-Locked State Update Function
-    private void StateTargetLockedUpdate()
-    {
-
-    }
-    // Firing State Update Function
-    private void StateFiringUpdate()
-    {
-
-    }
-    // Disabled State Update Function
-    private void StateDisabledUpdate()
-    {
-
-    }
-    // Dead State Update Function
-    private void StateDeadUpdate()
-    {
 
     }
 }
